@@ -1,0 +1,487 @@
+/* GENERALS */
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+
+:root {
+  --goldman-font: 'Goldman', cursive;
+  --bowlby-font: 'Bowlby One SC', cursive;
+  --lalezar: 'Lalezar', cursive;
+}
+
+h1, h2, h3, h4, h5, p{
+  font-family: var(--lalezar);
+  color: black;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+h1{
+  font-size: 3rem;
+  color: black;
+  margin: 2rem auto;
+}
+h2{
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+h3{
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+h4{
+  font-size: 1.25rem;
+  color: black;
+  text-transform: uppercase;
+}
+h5 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+p {
+  font-size: .9rem;
+}
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  height: 95vh;
+  width: 95vw;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container-classes,
+.container-fight {
+  height: auto;
+  max-height: auto;
+  width: 95vw;
+  margin: 1rem;
+}
+.container-classes h1,
+.container-fight h1 {
+  font-family: var(--goldman-font);
+  font-size: 3rem;
+  font-weight: bold;
+  color: crimson;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  width: 100%;
+}
+.header a {
+  text-decoration: none;
+  align-self: flex-end;
+  margin: 0 1rem;
+}
+.sensei-h1 {
+  font-size: 4rem!important;
+}
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+
+}
+.main-classes,
+.main-fight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+}
+
+.main-classes span {
+  display: none;
+  font-family: var(--lalezar);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: crimson;
+  text-align: center;
+  align-self: center!important;
+}
+.background-image {
+  width: 100%;
+}
+.vista {
+  width: 70%;
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0.5rem 1rem 2rem;
+}
+.vista h1 {
+  font-family: var(--goldman-font);
+  font-size: 3rem;
+  font-weight: bold;
+  color: crimson;
+  text-align: center;
+}
+.vista img {
+  max-width: 25rem;
+  max-height: 25rem;
+}
+@media(max-height: 420px){
+  .vista img{
+    max-width: 10rem;
+    max-height: 10rem;
+  }
+}
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.result-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.result-list img {
+  width: 90vw;
+}
+
+.entry{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40vw;
+  height: 10vh;
+}
+@media (min-width: 480px){
+  .entry{
+    margin: 1rem;
+  }
+}
+.ranking{
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 15vh;
+}
+.entry-ranking .rank-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.rank-info .frame .level{
+  width: 33%;
+  margin: 0 auto;
+  justify-self: center!important;
+  align-self: center!important;
+}
+.rank-info .user{
+  margin: 0 1rem;
+  color: midnightblue;
+  text-transform: capitalize;
+}
+
+.list .entry-form{
+  font-family: var(--lalezar);
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 75%;
+  margin: 0.125rem 1rem;
+  padding: 0 1rem;
+  height: 5vh;
+  flex-grow: 0;
+}
+.list .entry-form h2  {
+  text-align: justify;
+  width: 25vw;
+}
+.list .entry-form label img{
+  height: 6vh;
+  margin-right: 15vw;
+  flex-grow: 0;
+}
+.list .entry-form label h4{
+  text-transform: capitalize;
+}
+
+.list .entry-form input[type='checkbox']{
+  display:none;
+}
+.list .entry-form input[type='email'],
+.list .entry-form input[type='password'],
+.list .entry-form input[type='text'],
+.list .entry-form input[type='number'] {
+  font-family: var(--lalezar);
+  font-weight: lighter;
+  font-size: 1rem;
+  width: 40vw;
+  justify-self: flex-end;
+  flex-grow: 0;
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+.list .entry-form input[type='email']{
+  margin-left: 3.3rem;
+}
+.list .entry-form select {
+  font-family: var(--lalezar)!important;
+  width: 21.5rem;
+  justify-self: flex-end;
+  flex-grow: 0;
+}
+
+.entry img {
+  width: 25%;
+  max-width: 7rem;
+}
+.entry .sensei-img {
+  width: 50%;
+  max-width: 14rem;
+}
+.entry a {
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+.entry h2,
+.entry label {
+  font-family: var(--lalezar);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+.entry input[type='checkbox'] {
+  position: relative;
+  cursor: pointer;
+}
+.entry input[type=checkbox]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 1.2rem;
+  height: 1.2rem;
+  top: 0;
+  left: 0;
+  border: 2px solid #555555;
+  border-radius: 0.25rem;
+  background-color: white;
+}
+input[type=checkbox]:checked:after {
+  content: "👊";
+  display: block;
+  width: 0.5rem;
+  height: 0.9rem;
+  position: absolute;
+  top: 1px;
+  left: 3px;
+}
+.input-civilian,
+.input-karatekas,
+.input-masters,
+.input-player {
+  display: none;
+}
+
+.input-senseis {
+  margin: 0 1rem;
+}
+.entry .edit,
+.entry .delete {
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+}
+.entry .edit .fa-edit
+{
+  color: black;
+}
+.entry .delete .fa-trash {
+  color: salmon;
+}
+.main-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1rem;
+}
+@media (min-width: 480px){
+  .main-menu{
+    margin-bottom: 8rem;
+  }
+}
+.main-menu h1{
+  color: limegreen;
+}
+.aside {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+  height: 33%;
+  max-width: 35rem;
+  margin: 1rem 2rem 4rem 0.5rem;
+}
+
+.aside h1{
+  color: limegreen;
+}
+.aside .card img {
+  max-width: 8rem;
+  max-height: 8rem;
+}
+.menu{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  width: 25vw;
+  height: 25vh;
+}
+.card .master {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.card .info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+.card-image {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card a {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}
+.card a h2 {
+  font-family: var(--bowlby-font);
+  font-size: 1.5rem;
+  padding: 0.5rem 0;
+}
+.card:hover a h2 {
+  background-color: moccasin;
+  transition: ease-in-out 0.3s;
+}
+.card form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.classes:hover a h2{
+  background-color: lemonchiffon;
+  transition: ease-in-out 0.3s;
+}
+.fight:hover a h2{
+  background-color: salmon;
+  transition: ease-in-out 0.3s;
+}
+.card h3 {
+  color: navajowhite;
+}
+
+.card h5 {
+  color: midnightblue;
+}
+.card p {
+  color: salmon;
+}
+
+#tourney input {
+  display: none;
+}
+#firstRound input {
+  display: none;
+}
+#secondRound input {
+  display: none;
+}
+#semiFinal input {
+  display: none;
+}
+
+.btn {
+  align-self: center!important;
+  width: auto;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  border: none;
+  background-color: white;
+  font-family: var(--bowlby-font);
+  font-size: 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+.recruit {
+  align-self: center;
+  font-size: 1rem;
+}
+.btn:hover{
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transition: ease-in-out 0.3s;
+  background-color: lightgreen;
+}
+.btn-battle:hover {
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
+
+.btn-tourney:hover {
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
+
+.btn-firstRound:hover {
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
+.btn-secondRound:hover {
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
+.btn-semiFinal:hover{
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
+.btn-fight:hover {
+  transition: ease-in-out 0.3s;
+  background-color: salmon;
+}
