@@ -382,9 +382,12 @@ input[type=checkbox]:checked:after {
 .card-image {
   width: 100%;
   margin: 0 auto;
+  
 }
 
 .card a {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   text-align: center;
   color: black;
@@ -393,6 +396,12 @@ input[type=checkbox]:checked:after {
   font-family: var(--bowlby-font);
   font-size: 1.5rem;
   padding: 0.5rem 0;
+}
+.card a .card-image {
+  margin: auto;
+  justify-self: center;
+  align-self: center;
+  flex-grow: 0;
 }
 .card:hover a h2 {
   background-color: moccasin;

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Layout from '../components/Layout';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const errorMessage = '';
 
@@ -50,10 +51,10 @@ const SignUp = () => {
                     <h4>{/* */}</h4>
                   </div>
                   <div className="entry-form">
-                    <button
+                    <input
                       type='submit'
                       className='btn btn-primary'
-                    >Join</button>
+                      value='Join'/>
                   </div>
                   <div className='entry-form'>
                     {errorMessage ? <p>{errorMessage}</p> : null}
@@ -61,13 +62,13 @@ const SignUp = () => {
                 </div>
               </div>
             </form>
-          </div>  
+          </div>
         </div>
         <div className='menu'>
           <div className='card sign-up'>
             <div className='info'>
             </div>
-            <a href='/log-in'>
+            <Link href='/log-in'>
               <Image
                 className='card-image'
                 src='/images/log-in.jpg'
@@ -75,8 +76,8 @@ const SignUp = () => {
                 height={240}
                 alt='Sign Up'
               />
-              <h2>Log-in</h2>
-            </a>
+            </Link>
+            <h2>Log-in</h2>
           </div>
         </div>
       </Layout>
