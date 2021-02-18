@@ -4,13 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const errorMessage = '';
-
 const LogIn = () => {
   return ( 
     <Fragment>
       <Layout>
-        <div class="main">
-          <div class="vista">
+        <div className="main">
+          <div className="vista">
             <h1>Log-in</h1>
             <form action='/log-in' id='logIn'>
               <div className="main-classes">
@@ -58,7 +57,6 @@ const LogIn = () => {
           <div className='card log-in'>
             <div className='info'>
             </div>
-            <Link href='/sign-up'>
               <Image
                 className='card-image'
                 src='/images/sign-up.jpg'
@@ -66,9 +64,10 @@ const LogIn = () => {
                 height={240}
                 alt='Sign Up'
               />
-            </Link>
               <p>Don't have an account?</p>
+            <Link href='/sign-up'>
               <h2>Sing-Up</h2>
+            </Link>
           </div>
         </div>
       </Layout>
