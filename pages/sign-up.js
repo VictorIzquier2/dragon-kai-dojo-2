@@ -1,15 +1,33 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import {useRouter} from 'next/router';
 import Layout from '../components/Layout';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {useMutation, gql} from '@apollo/client';
 
-const errorMessage = '';
-
-
+const SIGN_UP = gql`
+  mutation newUser($input: UserInput){
+    newUser(input: $input){
+      id
+      username
+      email
+      password
+    }
+  }
+`;
 
 const SignUp = () => {
+
+  // Routing 
+  const router = useRouter();
+
+  // State para el mensaje
+  const[message, setMessage] = useState(null);
+
+  // Mutation para crear nuevos usuarios con Graphql 
+  const [newUser] = useMutation(SIGN_UP); 
   
   // Validacion del formulario 
   const formik = useFormik({
@@ -32,11 +50,46 @@ const SignUp = () => {
                 .min(6, 'It should be longer than 6 characters')
 
     }),
-    onSubmit: valores => {
-      console.log('enviando');
+    onSubmit: async valores => {
       console.log(valores);
+
+      const {username, email, password} = valores;
+
+      try{
+        const {data} = await newUser({
+          variables: {
+            input: {
+              username,
+              email,
+              password
+            }
+          }
+        });
+        
+        console.log(data);
+        setMessage(`User ${data.newUser.username} was created correctly`);
+        setTimeout(() => {
+          setMessage(null)
+          router.push('/log-in')
+        }, 500);
+      }catch(err) {
+        setMessage(err.message);
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
+      }
     }
   });
+
+  //if(loading) return <h1>Cargando...</h1>
+
+  const showMessage = () => {
+    return(
+      <div className='entry-form'>
+        <p>{message}</p>
+      </div>
+    )
+  }
 
   return ( 
     <Fragment>
@@ -46,11 +99,12 @@ const SignUp = () => {
             <h1>Sign-Up</h1>
             <form 
               onSubmit={formik.handleSubmit} 
-              id='logIn'
-            >
+              id='signUp'
+              >
               <div className="main-classes">
                 <div className="list">
                   <div className="entry-form">
+                    {message && showMessage()}
                   </div>
                   <div className="entry-form">
                     <label htmlFor='email'><h4>Email</h4></label>
@@ -106,7 +160,7 @@ const SignUp = () => {
                     />
                   </div>
 
-                  {formik.errors.username && formik.touched.password &&
+                  {formik.errors.password && formik.touched.password &&
                     <div className='entry-form form-error'>
                       <p><strong>Error</strong></p>
                       <p>{formik.errors.password}</p>
@@ -121,9 +175,6 @@ const SignUp = () => {
                       type='submit'
                       className='btn btn-primary'
                       value='Join'/>
-                  </div>
-                  <div className='entry-form'>
-                    {errorMessage ? <p>{errorMessage}</p> : null}
                   </div>
                 </div>
               </div>

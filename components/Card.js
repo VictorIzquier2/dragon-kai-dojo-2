@@ -9,18 +9,18 @@ const Card = ({cardClass, cardTitle, cardCounter, cardDestiny, cardImage, cardIm
         <h4>{cardTitle}</h4>
         <h3>{cardCounter}</h3>
       </div>
+      <Image
+        className='card-image'
+        src={cardImage}
+        width={360}
+        height={240}
+        alt={cardImgAlt}
+      />
       <Link href={`/${cardDestiny}`}>
-          <Image
-            className='card-image'
-            src={cardImage}
-            width={360}
-            height={240}
-            alt={cardImgAlt}
-          />
+        <h2>{destinyTitle}</h2>
       </Link>
-          <h2>{destinyTitle}</h2>
     </div>
   );
 }
- 
+
 export default Card;

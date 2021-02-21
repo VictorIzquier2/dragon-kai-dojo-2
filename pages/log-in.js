@@ -1,19 +1,100 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Layout from '../components/Layout';
 import Image from 'next/image';
 import Link from 'next/link';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+import {useMutation, gql} from '@apollo/client';
+import {useRouter} from 'next/router';
 
-const errorMessage = '';
+const AUTH_USER = gql`
+  mutation authUser($input: AuthInput){
+    authUser(input: $input){
+      token
+    }
+  }
+`;
+
 const LogIn = () => {
+
+  // Routing 
+  const router = useRouter();
+
+  // State para el mensaje
+  const[message, setMessage] = useState(null);
+
+  // Mutation para crear nuevos usuarios en apollo 
+  const [authUser] = useMutation(AUTH_USER);
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup
+              .string()
+              .email('Email is not valid')
+              .required('Email is required'),
+      password: Yup
+                  .string()
+                  .required('Password is required')
+    }),
+    onSubmit: async valores => {
+      const {email, password} = valores;
+      try{
+        const {data} = await authUser({
+          variables: {
+            input: {
+              email,
+              password
+            }
+          }
+        });
+        console.log(data);
+        setMessage(`Authenticating...`);
+          setTimeout(() => {
+          setMessage(null)
+          router.push('/log-in')
+          }, 500);        
+      
+        const {token} = data.authUser;
+        localStorage.setItem('token', token);
+
+        router.push('/dojo');
+      }catch(err) {
+        {router.pathname('/log-in') &&
+          setMessage(err.message);
+          setTimeout(() => {
+            setMessage(null);
+          }, 2000);
+        }
+      }
+    }
+  });
+
+  const showMessage = () => {
+    return(
+      <div className='entry-form'>
+        <p>{message}</p>
+      </div>
+    )
+  }
+
   return ( 
     <Fragment>
       <Layout>
         <div className="main">
           <div className="vista">
             <h1>Log-in</h1>
-            <form action='/log-in' id='logIn'>
+            <form 
+              onSubmit={formik.handleSubmit}
+              id='logIn'>
               <div className="main-classes">
                 <div className="list">
+                  <div className="entry-form">
+                    {message && showMessage()}
+                  </div>
                   <div className="entry-form">
                   </div>
                   <div className="entry-form">
@@ -24,8 +105,19 @@ const LogIn = () => {
                       name='email'
                       id='email'
                       placeholder='Your Email'
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
                     />
                   </div>
+
+                  {formik.errors.email && formik.touched.email &&
+                    <div className='entry-form form-error'>
+                      <p><strong>Error</strong></p>
+                      <p>{formik.errors.email}</p>
+                    </div>
+                  }
+
                   <div className="entry-form">
                     <label htmlFor='password'><h4>Password</h4></label>
                     <input
@@ -34,8 +126,19 @@ const LogIn = () => {
                       name='password'
                       id='password'
                       placeholder='************'
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
                     />
                   </div>
+
+                  {formik.errors.password && formik.touched.password &&
+                    <div className='entry-form form-error'>
+                      <p><strong>Error</strong></p>
+                      <p>{formik.errors.password}</p>
+                    </div>
+                  }
+
                   <div className="entry-form">
                     <h4>{/* */}</h4>
                   </div>
@@ -44,9 +147,6 @@ const LogIn = () => {
                       type='submit'
                       className='btn btn-primary'
                       value='Enter' />
-                  </div>
-                  <div className='entry-form'>
-                    {errorMessage ? <p>{errorMessage}</p> : null}
                   </div>
                 </div>
               </div>
