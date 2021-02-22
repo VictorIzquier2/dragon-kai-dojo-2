@@ -24,51 +24,96 @@ const NUMBEROF_MASTERS = gql`
   }
 `;
 
+const GET_MASTER = gql`
+  query getMaster{
+    getMaster{
+      id  
+      name
+      genre
+      solvency
+      nature
+      level
+      strength
+      dexterity
+      stamina
+      mana
+      standing
+      imageUrl
+    }
+  }
+`;
+
 const RECRUIT_SENSEI = gql`
   mutation newSensei($input: SenseiInput){
-    newSensei(input: $input)
-    owner
+    newSensei(input: $input){
+      name,
+      genre,
+      solvency,
+      nature,
+      level,
+      strength,
+      dexterity,
+      stamina,
+      mana,
+      standing,
+      imageUrl,
+    }
   }
 `;
 
 
 const Dojo = () => {
+ 
+  // Consultas de Apollo 
+  const {data: datak, loading: loadingk, error: errork}  = useQuery(NUMBEROF_KARATEKAS);
+  
+  const {data: datac, loading: loadingc, error: errorc} = useQuery(NUMBEROF_CIVILIANS);
+  
+   const {data: datam, loading: loadingm, error: errorm} = useQuery(NUMBEROF_MASTERS);
+  
+   const {data: datagm, loading: loadinggm, error: errorgm} = useQuery(GET_MASTER);
   
   const [message, setMessage] = useState(null);
   
   const [newSensei] = useMutation(RECRUIT_SENSEI);
   
   const reclutarSensei = async e => {
-     e.preventDefault()
-     console.log('reclutando');
+     e.preventDefault();
+
+    const master = datagm.getMaster;
+
+    const {name, genre, solvency, nature, level, strength, dexterity, stamina, mana, standing, imageUrl} = master;
 
      try{
       const {data} = await newSensei({
         variables: {
           input: {
-            owner
+            name,
+            genre,
+            solvency,
+            nature,
+            level,
+            strength,
+            dexterity,
+            stamina,
+            mana,
+            standing,
+            imageUrl,
           }
         }
-      })
+      });
+      console.log(data.newSensei);
      }catch(err){
-       console.log(err);
+       setMessage(err.message);
      }
 
-   }
+  }
    
   useEffect(() => {
     setMessage(message);
-  }, [reclutarSensei])
+  }, [])
    
-  // Consultas de Apollo 
-  const {data: datak, loading: loadingk, error: errork}  = useQuery(NUMBEROF_KARATEKAS);
-
-  const {data: datac, loading: loadingc, error: errorc} = useQuery(NUMBEROF_CIVILIANS);
-
-   const {data: datam, loading: loadingm, error: errorm} = useQuery(NUMBEROF_MASTERS);
-
-  
-  if(loadingk || loadingc || loadingm) return <h1>Cargando...</h1>
+  if(loadingk || loadingc || loadingm || loadinggm) return <h1>Cargando...</h1>
 
   const numberOfKaratekas = datak.getNumberOfKaratekas;
   const numberOfCivilians = datac.getNumberOfCivilians;
