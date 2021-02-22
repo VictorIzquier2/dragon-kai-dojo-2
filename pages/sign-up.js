@@ -70,7 +70,7 @@ const SignUp = () => {
         setMessage(`User ${data.newUser.username} was created correctly`);
         setTimeout(() => {
           setMessage(null)
-          router.push('/log-in')
+          router.push('/log-in', '/log-in')
         }, 500);
       }catch(err) {
         setMessage(err.message);

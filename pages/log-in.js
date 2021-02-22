@@ -52,23 +52,19 @@ const LogIn = () => {
           }
         });
         console.log(data);
+        const {token} = data.authUser;
+        localStorage.setItem('token', token);
         setMessage(`Authenticating...`);
           setTimeout(() => {
           setMessage(null)
-          router.push('/log-in')
+          router.push('/dojo', '/dojo');
           }, 500);        
-      
-        const {token} = data.authUser;
-        localStorage.setItem('token', token);
-
-        router.push('/dojo');
+          
       }catch(err) {
-        {router.pathname('/log-in') &&
-          setMessage(err.message);
-          setTimeout(() => {
-            setMessage(null);
-          }, 2000);
-        }
+        setMessage(err.message);
+        setTimeout(() => {
+          setMessage(null);
+        }, 2000);
       }
     }
   });

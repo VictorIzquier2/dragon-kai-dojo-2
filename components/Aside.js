@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-const Aside = ({card, asideTitle, idCounter, counter, image, altImage, idButton, titleButton, message}) => {
+const Aside = ({card, asideTitle, idCounter, counter, image, altImage, idButton, submitButton, titleButton, message}) => {
   return ( 
     <div className='aside'>
       <div className={`card ${card}`}>
@@ -16,7 +16,9 @@ const Aside = ({card, asideTitle, idCounter, counter, image, altImage, idButton,
             alt={altImage}
           />
         </div>
-        <form>
+        <form
+          onSubmit={submitButton}
+        >
           <button 
             className='btn btn-primary'  
             id={`${idButton}`}
@@ -29,5 +31,5 @@ const Aside = ({card, asideTitle, idCounter, counter, image, altImage, idButton,
     </div>
    );
 }
- 
+
 export default Aside;
